@@ -12,3 +12,5 @@ Git practice - branch A and B merged
 Patient registration feature
 nvim README.md
 Hospital System - feature branch documentation practice.
+
+i am lazy git 
