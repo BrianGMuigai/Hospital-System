@@ -13,7 +13,7 @@ A Spring Boot backend for a hospital management system covering patient care, ph
 
 ![Module map](docs/architecture/full.png)
 
-Eight modules: Identity, Outpatient, Inpatient, Pharmacy, Laboratory, Finance, HR and System. The full schema is in the [ERD](docs/architecture/hospital_erd.png).
+Eight modules: Identity, Outpatient, Inpatient, Pharmacy, Laboratory, Finance, HR and System. The full schema is in the [ERD](docs/architecture/full.png).
 
 Requests flow through three layers:
 
