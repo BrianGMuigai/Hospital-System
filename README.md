@@ -1,5 +1,5 @@
 
-## 📌 Hospital Management System (Backend)
+## 📌 Hospital Management System 
 
 A Spring Boot backend for a hospital management system covering patient care, pharmacy, laboratory, billing and HR. The design priorities are data integrity, explicit transaction boundaries, and putting each business rule at the layer that can enforce it reliably.
 
