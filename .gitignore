@@ -41,3 +41,4 @@ qodana.yaml
 .env
 .env.*
 !.env.example
+*.log
