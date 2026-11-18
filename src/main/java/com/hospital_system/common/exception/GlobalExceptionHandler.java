@@ -53,13 +53,13 @@ public class GlobalExceptionHandler {
     String message = "The request conflicts with existing data";
 
     if (constraint != null) {
-      if (constraint.startsWith("uq_")) {
+      if (constraint.startsWith("uq_") || constraint.endsWith("_key")) {
         code = "DUPLICATE_VALUE";
         message = "A record with the same value already exists";
-      } else if (constraint.startsWith("fk_")) {
+      } else if (constraint.startsWith("fk_") || constraint.endsWith("_fkey")) {
         code = "REFERENCE_VIOLATION";
         message = "A related record does not exist, or this record is still in use";
-      } else if (constraint.startsWith("chk_")) {
+      } else if (constraint.startsWith("chk_") || constraint.endsWith("_check")) {
         status = HttpStatus.UNPROCESSABLE_CONTENT;
         code = "RULE_VIOLATION";
         message = "The value breaks a data rule";
