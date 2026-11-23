@@ -53,6 +53,10 @@ public class User extends BaseEntity {
     return active;
   }
 
+  public void deactivate() {
+    this.active = false;
+  }
+
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }

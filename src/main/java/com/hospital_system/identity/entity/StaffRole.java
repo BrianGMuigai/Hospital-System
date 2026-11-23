@@ -55,6 +55,10 @@ public class StaffRole extends BaseEntity {
     return !date.isBefore(validFrom) && (validTo == null || !date.isAfter(validTo));
   }
 
+  public void end(LocalDate endDate) {
+    this.validTo = endDate;
+  }
+
   public Integer getStaffId() {
     return staffId;
   }
