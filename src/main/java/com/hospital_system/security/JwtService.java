@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
+  public static final String CLAIM_USER_NAME = "userName";
+  public static final String CLAIM_PERMISSIONS = "permissions";
   private final SecretKey key;
   private final long expirationMinutes;
   private final Clock clock;
@@ -33,8 +35,8 @@ public class JwtService {
     Instant now = clock.instant();
     return Jwts.builder()
         .subject(String.valueOf(userId))
-        .claim("userName", userName)
-        .claim("permissions", permissions)
+        .claim(CLAIM_USER_NAME, userName)
+        .claim(CLAIM_PERMISSIONS, permissions)
         .issuedAt(Date.from(now))
         .expiration(Date.from(now.plus(expirationMinutes, ChronoUnit.MINUTES)))
         .signWith(key)
