@@ -71,7 +71,7 @@ public class UserService {
   }
 
   @Transactional
-  public void deactivatedUser(Integer id) {
+  public void deactivateUser(Integer id) {
     User user = findUser(id);
     if (!user.isActive()) {
       throw new BusinessRuleException("User is alrady deactivated");
