@@ -114,4 +114,9 @@ public class GlobalExceptionHandler {
             details);
     return ResponseEntity.status(status).body(body);
   }
+
+  @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+  public void rethrowAccessDenied(org.springframework.security.access.AccessDeniedException ex) {
+    throw ex;
+  }
 }

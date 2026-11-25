@@ -1,5 +1,6 @@
 package com.hospital_system.security;
 
+import com.hospital_system.common.security.AuthenticatedUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -40,8 +41,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         AuthenticatedUser principal =
             new AuthenticatedUser(
                 Integer.valueOf(claims.getSubject()),
+                claims.get(JwtService.CLAIM_STAFF_ID, Integer.class),
                 claims.get(JwtService.CLAIM_USER_NAME, String.class));
-
         SecurityContextHolder.getContext()
             .setAuthentication(
                 new UsernamePasswordAuthenticationToken(principal, null, authorities));

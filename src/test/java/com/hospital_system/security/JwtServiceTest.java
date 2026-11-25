@@ -17,18 +17,19 @@ class JwtServiceTest {
 
   @Test
   void generatedToken_canBeParsed() {
-    String token = jwtService.generateToken(7, "jane", List.of("PATIENT_READ"));
+    String token = jwtService.generateToken(7, 3, "jane", List.of("PATIENT_READ"));
 
     Claims claims = jwtService.parse(token);
 
     assertThat(claims.getSubject()).isEqualTo("7");
+    assertThat(claims.get("staffId", Integer.class)).isEqualTo(3);
     assertThat(claims.get("userName", String.class)).isEqualTo("jane");
     assertThat(claims.get("permissions", List.class)).containsExactly("PATIENT_READ");
   }
 
   @Test
   void tamperedToken_isRejected() {
-    String token = jwtService.generateToken(7, "jane", List.of());
+    String token = jwtService.generateToken(7, 3, "jane", List.of());
 
     assertThatThrownBy(() -> jwtService.parse(token + "x")).isInstanceOf(JwtException.class);
   }
@@ -37,7 +38,8 @@ class JwtServiceTest {
   void tokenSignedWithAnotherSecret_isRejected() {
     JwtService other =
         new JwtService("another-secret-another-secret-12345678", 60, Clock.systemUTC());
-    String token = other.generateToken(7, "jane", List.of());
+
+    String token = other.generateToken(7, 3, "jane", List.of());
 
     assertThatThrownBy(() -> jwtService.parse(token)).isInstanceOf(JwtException.class);
   }

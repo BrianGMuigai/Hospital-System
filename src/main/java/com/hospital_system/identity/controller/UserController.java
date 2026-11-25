@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,10 +19,11 @@ public class UserController {
 
   private final UserService userService;
 
-  private UserController(UserService userService) {
+  public UserController(UserService userService) {
     this.userService = userService;
   }
 
+  @PreAuthorize("hasAuthority('USER_WRITE')")
   @PostMapping
   public ResponseEntity<ApiResponse<UserResponse>> create(
       @Valid @RequestBody CreateUserRequest request) {
@@ -29,17 +31,20 @@ public class UserController {
         .body(ApiResponse.ok(userService.createUser(request)));
   }
 
+  @PreAuthorize("hasAuthority('USER_READ')")
   @GetMapping("/{id}")
   public ApiResponse<UserResponse> get(@PathVariable Integer id) {
     return ApiResponse.ok(userService.getUser(id));
   }
 
+  @PreAuthorize("hasAuthority('USER_READ')")
   @GetMapping
   public ApiResponse<PageResponse<UserResponse>> list(
       @PageableDefault(size = 20) Pageable pageable) {
     return ApiResponse.ok(PageResponse.from(userService.listUsers(pageable)));
   }
 
+  @PreAuthorize("hasAuthority('USER_WRITE')")
   @PatchMapping("/{id}/deactivate")
   public ResponseEntity<Void> deactivate(@PathVariable Integer id) {
     userService.deactivateUser(id);
