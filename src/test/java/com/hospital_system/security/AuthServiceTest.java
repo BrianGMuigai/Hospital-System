@@ -69,7 +69,8 @@ class AuthServiceTest {
   void login_validCredentials_returnsTokenAndPermissions() {
     when(userRepository.findByUserName("jane")).thenReturn(Optional.of(user()));
     when(permissionLoader.loadPermissions(any())).thenReturn(List.of("PATIENT_READ"));
-    when(jwtService.generateToken(any(), eq("jane"), eq(List.of("PATIENT_READ"))))
+    when(permissionLoader.findStaffId(any())).thenReturn(3);
+    when(jwtService.generateToken(any(), eq(3), eq("jane"), eq(List.of("PATIENT_READ"))))
         .thenReturn("the-token");
 
     LoginResponse response = service.login(new LoginRequest("jane", "Secret123!"));
