@@ -37,8 +37,7 @@ public class AuthService {
             .orElseThrow(() -> new UnauthorizedException("Invalid user name or password"));
 
     List<String> permissions = permissionLoader.loadPermissions(user.getId());
-    Integer staffId = permissionLoader.findStaffId(user.getId());
-    String token = jwtService.generateToken(user.getId(), staffId, user.getUserName(), permissions);
+    String token = jwtService.generateToken(user.getId(), user.getUserName(), permissions);
     return new LoginResponse(token, user.getId(), user.getUserName(), permissions);
   }
 }

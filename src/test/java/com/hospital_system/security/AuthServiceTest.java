@@ -59,7 +59,6 @@ class AuthServiceTest {
   void login_deactivatedUser_isRejected() {
     User user = user();
     user.deactivate();
-
     when(userRepository.findByUserName("jane")).thenReturn(Optional.of(user));
 
     assertThatThrownBy(() -> service.login(new LoginRequest("jane", "Secret123!")))
@@ -69,10 +68,8 @@ class AuthServiceTest {
   @Test
   void login_validCredentials_returnsTokenAndPermissions() {
     when(userRepository.findByUserName("jane")).thenReturn(Optional.of(user()));
-
     when(permissionLoader.loadPermissions(any())).thenReturn(List.of("PATIENT_READ"));
-
-    when(jwtService.generateToken(any(), any(), eq("jane"), eq(List.of("PATIENT_READ"))))
+    when(jwtService.generateToken(any(), eq("jane"), eq(List.of("PATIENT_READ"))))
         .thenReturn("the-token");
 
     LoginResponse response = service.login(new LoginRequest("jane", "Secret123!"));

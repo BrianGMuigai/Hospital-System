@@ -34,10 +34,4 @@ public class PermissionLoader {
     LocalDate today = LocalDate.now(clock);
     return jdbc.queryForList(SQL, String.class, userId, today, today);
   }
-
-  public Integer findStaffId(Integer userId) {
-    List<Integer> ids =
-        jdbc.queryForList("SELECT StaffId FROM Staff WHERE UserId = ?", Integer.class, userId);
-    return ids.isEmpty() ? null : ids.get(0);
-  }
 }
