@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "RolesPermission")
-@AttributeOverride(name = "id", column = @Column(name = "RolePermissionid"))
+@AttributeOverride(name = "id", column = @Column(name = "RolePermissionsid"))
 public class RolePermission extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
